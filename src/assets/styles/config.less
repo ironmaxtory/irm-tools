@@ -1,0 +1,78 @@
+/**
+ * 主体颜色
+ * 主色：用于特别需要的强调和突出的文字、按钮和icon
+ * 背景色：用于页面背景颜色
+ * 辅助色：用于XX栏颜色，如标题栏颜色、搭配辅助色及特殊标题栏背景颜色
+ */
+// @main-color: #fcc084;
+@main-color: #FAC805;
+@main-fade-color: lighten(@main-color, 5%);
+@main-strong-color: darken(@main-color, 5%);
+@main-stronger-color: darken(@main-color, 10%);
+@main-strongest-color: darken(@main-color, 20%);
+@assist-color: #333333;
+// @assist-color: #000000;
+@assist-fade-color: lighten(@assist-color, 5%);
+@assist-strong-color: darken(@assist-color, 5%);
+@background-color: #efeff4;
+// @section-background-color: @white-color;
+@section-background-color: @background-color;
+
+@link-color: @main-color;
+@info-color: #96C7D6;
+@success-color: #2ACB34;
+@warn-color: #ffd700;
+@alarm-color: #e4393c;
+@disabled-color: #cfcfcf;
+@white-color: #ffffff;
+@black-color: #000000;
+
+/**
+ * 字体颜色
+ * Black: 主内容用黑色
+ * Semi：大段的说明内容而且属于主内容用
+ * Grey：次要内容用
+ * Light：时间戳与表单缺省值用，如搜索框内字体
+ */
+@fontColor-black: #000000;
+@fontColor-white: #ffffff;
+@fontColor-semi: #353535;
+@fontColor-grey: #888888;
+@fontColor-light: #b2b2b2;
+// @fontColor-disabled: #f0f0f0;
+@fontColor-disabled: @fontColor-light;
+
+/**
+ * 其他颜色
+ */
+@divider-color: #eeeeee;
+@border-color: #e6e6e6;
+@border-dark-color: #444444;
+@mask-color: rgba(0,0,0, .7);
+@mask-glass-color: rgba(255, 255, 255, 0);
+
+/**
+ * 字体大小设置
+ */
+// 用于极重要的标题，如页面大标题
+@fontSize-imp-title: 28px;
+// 用于重要的标题，如页面二级标题
+@fontSize-emp-title: 24px;
+@fontSize-strong-title: 20px;
+// 用于较重要标题正文，如正文内容、弹出框标题、列表标题文字、按钮文字
+@fontSize-para-title: 16px;
+@fontSize-para-text: 14px;
+// 用于辅助性文字，如搜索列表文字、下拉列表文字
+@fontSize-assist-text: 15px;
+// 用于辅助性文字，如搜索框文字、小标题、低不说吗、副内容文字、链接、小按钮文字
+@fontSize-assist-subtext: 14px;
+// 用于辅助性说明，不太能被关注到的信息
+@fontSize-assist-info: 13px;
+// 用于说明文本，如版权信息、文本等不需要用户关注的信息
+@fontSize-assist-subinfo: 12px;
+
+
+/**
+ * 动画
+ * Animation
+ */
