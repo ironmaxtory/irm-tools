@@ -1,6 +1,6 @@
 const linkUrl = {
   GHAuthorUrl: 'https://github.com/ironmaxtory',
-  GHIRMToolsReleasesUrl: 'https://github.com/ironmaxtory/irm-tools/releases',
+  GHIRMToolsReleasesUrl: 'https://github.com/ironmaxtory/irm-tools-dist/releases',
 };
 
 /**

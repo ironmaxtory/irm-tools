@@ -1,3 +1,5 @@
 node_modules/
 OutApp/
+dist/
+test/
 .config.*.json

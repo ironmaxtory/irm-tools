@@ -2,7 +2,7 @@
   "name": "IRM-Tools",
   "version": "0.0.1",
   "description": "A minimal Electron application",
-  "main": "main.js",
+  "main": "./main/main.js",
   "scripts": {
     "start": "electron .",
     "pack": "electron-packager ./prepack IRM --out ./OutApp --overwrite --electron-version=1.6.10 --icon=./icos/64x64.ico --ignore=node_modules",
@@ -23,6 +23,8 @@
     "axios": "^0.16.1",
     "browser-sync": "^2.18.12",
     "chalk": "^1.1.3",
+    "download": "^6.2.5",
+    "download-git-repo": "^1.0.1",
     "gulp": "^3.9.1",
     "gulp-rev": "^7.1.2",
     "jquery": "^3.2.1",

@@ -81,19 +81,24 @@ var vm = new Vue({
     dialogxMsg: '',
     cancelBtnShowed: true,
     confirmBtnShowed: true,
+
+    appNewVerison: '',
   },
   mounted () {
     var that = this;
     // 检查版本更新
-    axios.get('https://api.github.com/repos/ironmaxtory/irm-tools/tags')
+    axios.get('https://api.github.com/repos/ironmaxtory/irm-tools-dist/tags')
       .then(function (response) {
         var rsp = response.data;
-        var currentVersion = 'v'+ipcRenderer.sendSync('syncAsked', 'AppVersion');
+        var currentVersion;
+        if (rsp.length <= 0) { return; }
+        currentVersion = 'v'+ipcRenderer.sendSync('syncAsked', 'AppVersion');
         var newVersion = rsp[0].name;
-        if (currentVersion === newVersion) {
+        if (currentVersion >= newVersion) {
           // not the newest version
           that.showModal = true;
           that.dialogxMsg = `新版本 ${newVersion} 现可用，是否去下载？`;
+          that.appNewVerison = newVersion;
         }
       })
       .catch(function (error) {
@@ -122,7 +127,10 @@ var vm = new Vue({
     dialogxConfirmBtnClicked () {
       this.showModal = false;
       // shell.openExternal(Configuration.linkUrl.GHIRMToolsReleasesUrl);
-      ipcRenderer.sendSync('syncAsked', 'UpdateApp');
+      ipcRenderer.sendSync('syncAsked', {name: 'UpdateApp', version: this.appNewVerison});
+      // download('ironmaxtory/irm-tools-dist', path.resolve(__dirname, '../.tmp_update'), { clone: false }, function (err) {
+      //   console.log('下载完成');
+      // });
     },
   },
 }).$mount('#root');

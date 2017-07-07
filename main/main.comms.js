@@ -5,8 +5,6 @@ const ipcMain = electron.ipcMain;
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 
-var tarball = require('tarball-extract')
-
 
 let AutoreloadProject = (function(childProcess){
   return function (pid) {
@@ -32,7 +30,7 @@ function respMessage (evt, arg, projects) {
   if (typeof arg === 'string') {
     switch (arg) {
       case 'AppPath':
-        evt.returnValue = path.resolve(__dirname);
+        evt.returnValue = path.resolve(__dirname, '../');
         break;
       case 'AppVersion':
         evt.returnValue = app.getVersion();
@@ -40,14 +38,6 @@ function respMessage (evt, arg, projects) {
       case 'ToggleDevTools':
         mainWindow.webContents.toggleDevTools();
         evt.returnValue = true;
-        break;
-      case 'UpdateApp':
-        evt.returnValue = true;
-        // mainWindow.close();
-        console.log(tarball);
-        tarball.extractTarball('./test/irm-tools-0.0.1.tar.gz', './test/IRM', function(err){
-          if(err) console.log(err)
-        });
         break;
       default:
         evt.returnValue = false;
@@ -68,6 +58,10 @@ function respMessage (evt, arg, projects) {
             break;
           }
         }
+        evt.returnValue = true;
+        break;
+      case 'UpdateApp':
+        console.log(arg);
         evt.returnValue = true;
         break;
       default:

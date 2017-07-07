@@ -91,6 +91,8 @@ const fs = require('fs'),
   childProcess = require('child_process'),
   spawn = require('child_process').spawn,
   exec = require('child_process').exec;
+const download = require('download-git-repo');
+
 const platform = process.platform;
 
 const MS_ADD = 1;
