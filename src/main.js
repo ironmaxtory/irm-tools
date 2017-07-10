@@ -16,6 +16,8 @@ import Configuration from 'ROOT/app.config.js';
 import Modal from 'COMPONENTS/modal/modal.vue';
 import Dialogx from 'COMPONENTS/dialog/dialogx.vue';
 
+const exec = require('child_process').exec;
+
 var Remote = require('electron').remote;
 var Menu = Remote.Menu;
 
@@ -30,8 +32,7 @@ Vue.use(VueRouter);
  *   i.e. import Myheader from './components/header.vue';
  */
 
-/* router 配置
-*/
+/* router 配置 */
 import routes from './router.js';
 //创建路由实例，传入配置参数
 var router = new VueRouter({
@@ -88,44 +89,101 @@ var vm = new Vue({
     appNewVerison: '',
   },
   mounted () {
-    var that = this;
-    // 检查版本更新
-    axios.get(this.GHApiDistTagsUrl)
-      .then(function (response) {
-        var rsp = response.data;
-        var currentVersion;
-        if (rsp.length <= 0) { return; }
-        currentVersion = 'v'+ipcRenderer.sendSync('syncAsked', 'AppVersion');
-        var newVersion = rsp[0].name;
-        console.log(currentVersion);
-        console.log(newVersion);
-        if (currentVersion < newVersion) {
-          // not the newest version
-          that.showModal = true;
-          that.dialogxMsg = `新版本 ${newVersion} 现可用，是否去下载？`;
-          that.appNewVerison = newVersion;
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-    // 设置应用界面菜单栏
-    var confs = Configuration.appMenuConf;
-    confs.forEach(function(item, index){
-      switch (item.label) {
-        case 'About':
-          item.click = function(item, focusedWindow){
-            router.push('/about');
-          }
-          break;
-        default:
-
-      }
-    });
-    var mainMenu = Menu.buildFromTemplate(Configuration.appMenuConf);
-        Menu.setApplicationMenu(mainMenu);
+    this.setMenu();
+    this.checkNodeModules();
   },
   methods: {
+    checkNodeModules () {
+      var that = this;
+      that.dialogxMsg = '正在检查安装...';
+      that.showModal = true;
+
+      var prms1 = new Promise(function(resolve, reject){
+        exec('cnpm list yyy', function(err, stdout, stderr){
+          if (err) {
+            that.dialogxMsg = '正在安装依赖';
+            that.showModal = true;
+            resolve({ success: false, name: 'yyy', type: 'g', });
+          } else {
+            resolve({ success: true, name: 'yyy', type: 'g', });
+          }
+        });
+      });
+      var prms2 = new Promise(function(resolve, reject){
+        exec('cnpm list xxx', function(err, stdout, stderr){
+          if (err) {
+            that.dialogxMsg = '正在安装依赖';
+            that.showModal = true;
+            resolve({ success: false, name: 'xxx', type: 'g', });
+          } else {
+            resolve({ success: true, name: 'xxx', type: 'g', });
+          }
+        });
+      });
+
+      Promise.all([prms1, prms2]).then(function(){
+        var len = arguments.length;
+        var success = true;
+        for (var i=0;i<len;i++) {
+          success &= argu;
+        }
+      }).catch(function(){
+        console.log(arguments);
+      });
+
+
+      // output.stdout.on('data', (data) => {
+      //   console.log(data);
+      // });
+      // output.stderr.on('data', (data) => {
+      //   console.log(data);
+      // });
+      // output.on('message', (date)=>{
+      //   console.log(data);
+      // });
+      // output.on('close', (data)=>{
+      //   console.log(data);
+      // });
+    },
+    setMenu () {
+      // 设置应用界面菜单栏
+      var confs = Configuration.appMenuConf;
+      confs.forEach(function(item, index){
+        switch (item.label) {
+          case 'About':
+            item.click = function(item, focusedWindow){
+              router.push('/about');
+            }
+            break;
+          default:
+        }
+      });
+      var mainMenu = Menu.buildFromTemplate(Configuration.appMenuConf);
+          Menu.setApplicationMenu(mainMenu);
+    },
+    checkUpdate () {
+      var that = this;
+      // 检查版本更新
+      axios.get(this.GHApiDistTagsUrl)
+        .then(function (response) {
+          var rsp = response.data;
+          var currentVersion;
+          if (rsp.length <= 0) { return; }
+          currentVersion = 'v'+ipcRenderer.sendSync('syncAsked', 'AppVersion');
+          var newVersion = rsp[0].name;
+          console.log(currentVersion);
+          console.log(newVersion);
+          if (currentVersion < newVersion) {
+            // not the newest version
+            that.dialogxMsg = `新版本 ${newVersion} 现可用，是否去下载？`;
+            that.appNewVerison = newVersion;
+            that.showModal = true;
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
     dialogxCancelBtnClicked () {
       this.showModal = false;
     },

@@ -438,7 +438,7 @@ export default {
      * 触发打开autoreload配置项
      * @return {[type]} [description]
      */
-    openConf () {
+    openConfx () {
       console.log('x');
       // var output = execSync('pwd');
       var output = exec('cnpm install --save download', function(){
@@ -457,7 +457,7 @@ export default {
         console.log(data);
       });
     },
-    openConfx () {
+    openConf () {
       var that = this;
 
       this.ensureConfFileExists();
