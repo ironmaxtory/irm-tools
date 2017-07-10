@@ -37,7 +37,9 @@
       <p><i class="iconfont icon-github"></i>&emsp;
         <a class="link" href="javascript:;" @click="skipToGithubPage(GHAuthorUrl)">{{GHAuthorUrl}}</a></p>
       <p><i class="iconfont icon-repo"></i>&emsp;
-        <a class="link" href="javascript:;" @click="skipToGithubPage(GHIRMToolsReleasesUrl)">{{GHIRMToolsReleasesUrl}}</a></p>
+        <a class="link" href="javascript:;" @click="skipToGithubPage(GHDistSourceUrl)">{{GHDistSourceUrl}}</a></p>
+      <p><i class="iconfont icon-product"></i>&emsp;
+        <a class="link" href="javascript:;" @click="skipToGithubPage(GHDistReleasesUrl)">{{GHDistReleasesUrl}}</a></p>
     </div>
 
     <div class="about-bottom">
@@ -57,7 +59,9 @@ export default {
   data () {
     return {
       GHAuthorUrl: Configuration.linkUrl.GHAuthorUrl,
-      GHIRMToolsReleasesUrl: Configuration.linkUrl.GHIRMToolsReleasesUrl,
+      GHDistSourceUrl: Configuration.linkUrl.GHDistSourceUrl,
+      GHDistReleasesUrl: Configuration.linkUrl.GHDistReleasesUrl,
+      GHApiDistTagsUrl: Configuration.linkUrl.GHApiDistTagsUrl,
 
       ipengoo,
       sysInfo: {
@@ -102,9 +106,10 @@ export default {
       switch (this.CUBtn.status) {
         case 0:
         this.CUBtn.status = 1;
-        axios.get('https://api.github.com/repos/ironmaxtory/irm-tools/tags')
+        axios.get(this.GHApiDistTagsUrl)
           .then(function (response) {
             var rsp = response.data;
+            if (rsp.length <= 0) {return;}
             var newVersion = rsp[0].name;
             if (that.sysInfo.appVersion === newVersion) {
               // the newest version
@@ -123,7 +128,7 @@ export default {
         case 1:
           break;
         case 3:
-          shell.openExternal(this.GHIRMToolsReleasesUrl);
+          shell.openExternal(this.GHDistReleasesUrl);
           break;
         default:
 

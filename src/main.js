@@ -65,9 +65,9 @@ window.onkeydown = (function(){
 // axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 // axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
 // 当后台代码运行环境发生变化后，只需要修改baseURL即可
-if(!PRODUCTION){
-  // axios.defaults.baseURL = 'http://localhost:8080/mysql_project/test-api/';
-}
+// if(!PRODUCTION){
+//   axios.defaults.baseURL = 'http://localhost:8080/mysql_project/test-api/';
+// }
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 
@@ -77,6 +77,9 @@ var vm = new Vue({
     Modal, Dialogx,
   },
   data: {
+    GHApiDistTagsUrl: Configuration.linkUrl.GHApiDistTagsUrl,
+    GHDistReleasesUrl: Configuration.linkUrl.GHDistReleasesUrl,
+
     showModal: false,
     dialogxMsg: '',
     cancelBtnShowed: true,
@@ -87,14 +90,16 @@ var vm = new Vue({
   mounted () {
     var that = this;
     // 检查版本更新
-    axios.get('https://api.github.com/repos/ironmaxtory/irm-tools-dist/tags')
+    axios.get(this.GHApiDistTagsUrl)
       .then(function (response) {
         var rsp = response.data;
         var currentVersion;
         if (rsp.length <= 0) { return; }
         currentVersion = 'v'+ipcRenderer.sendSync('syncAsked', 'AppVersion');
         var newVersion = rsp[0].name;
-        if (currentVersion >= newVersion) {
+        console.log(currentVersion);
+        console.log(newVersion);
+        if (currentVersion <= newVersion) {
           // not the newest version
           that.showModal = true;
           that.dialogxMsg = `新版本 ${newVersion} 现可用，是否去下载？`;
@@ -126,7 +131,7 @@ var vm = new Vue({
     },
     dialogxConfirmBtnClicked () {
       this.showModal = false;
-      // shell.openExternal(Configuration.linkUrl.GHIRMToolsReleasesUrl);
+      shell.openExternal(Configuration.linkUrl.GHDistReleasesUrl);
       ipcRenderer.sendSync('syncAsked', {name: 'UpdateApp', version: this.appNewVerison});
       // download('ironmaxtory/irm-tools-dist', path.resolve(__dirname, '../.tmp_update'), { clone: false }, function (err) {
       //   console.log('下载完成');

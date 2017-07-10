@@ -15,7 +15,7 @@ if [ ! -d "$distpackPath" ]
     mkdir "$distpackPath"
 fi
 
-# npm run build
+npm run build
 cp -rf ./dist "$prepackPath"
 cp -f app.config.js "$prepackPath"
 cp -rf main "$prepackPath"

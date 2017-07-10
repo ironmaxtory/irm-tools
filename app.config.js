@@ -1,6 +1,8 @@
 const linkUrl = {
   GHAuthorUrl: 'https://github.com/ironmaxtory',
-  GHIRMToolsReleasesUrl: 'https://github.com/ironmaxtory/irm-tools-dist/releases',
+  GHDistSourceUrl: 'https://github.com/ironmaxtory/irm-tools',
+  GHDistReleasesUrl: 'https://github.com/ironmaxtory/irm-tools-dist/releases',
+  GHApiDistTagsUrl: 'https://api.github.com/repos/ironmaxtory/irm-tools-dist/tags',
 };
 
 /**
