@@ -18,7 +18,7 @@ app.on('ready', function(){
 })
 app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') {
-    // app.quit()
+    app.quit()
     console.log('所有窗口已经关闭');
   }
 })

@@ -99,7 +99,7 @@ var vm = new Vue({
         var newVersion = rsp[0].name;
         console.log(currentVersion);
         console.log(newVersion);
-        if (currentVersion <= newVersion) {
+        if (currentVersion < newVersion) {
           // not the newest version
           that.showModal = true;
           that.dialogxMsg = `新版本 ${newVersion} 现可用，是否去下载？`;

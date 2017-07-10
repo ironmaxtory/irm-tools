@@ -1,5 +1,6 @@
 const electron = require('electron');
 const path = require('path');
+const url = require('url');
 const BrowserWindow = electron.BrowserWindow;
 const ROOT_PATH = path.resolve(__dirname, '../');
 const DIST_PATH = path.resolve(ROOT_PATH, './dist');
