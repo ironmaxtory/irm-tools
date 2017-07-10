@@ -9,7 +9,7 @@ const DIST_PATH = path.resolve(ROOT_PATH, './dist');
 function createWindow (projects) {
   mainWindow = new BrowserWindow({width: 820, height: 820, resizable: false,});
 
-  if (1) {
+  if (false) {
     // When Build
     mainWindow.loadURL(url.format({
       pathname: path.resolve(DIST_PATH, 'index.html'),
@@ -22,7 +22,7 @@ function createWindow (projects) {
   }
 
   // Open the DevTools.
-  // mainWindow.webContents.openDevTools()
+  mainWindow.webContents.openDevTools()
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {

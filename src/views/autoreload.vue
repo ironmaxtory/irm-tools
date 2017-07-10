@@ -90,6 +90,7 @@ const fs = require('fs'),
   chalk = require('chalk'),
   childProcess = require('child_process'),
   spawn = require('child_process').spawn,
+  execSync = require('child_process').execSync,
   exec = require('child_process').exec;
 
 const platform = process.platform;
@@ -438,6 +439,25 @@ export default {
      * @return {[type]} [description]
      */
     openConf () {
+      console.log('x');
+      // var output = execSync('pwd');
+      var output = exec('cnpm install --save download', function(){
+        console.log(arguments);
+      });
+      output.stdout.on('data', (data) => {
+        console.log(data);
+      });
+      output.stderr.on('data', (data) => {
+        console.log(data);
+      });
+      output.on('message', (date)=>{
+        console.log(data);
+      });
+      output.on('close', (data)=>{
+        console.log(data);
+      });
+    },
+    openConfx () {
       var that = this;
 
       this.ensureConfFileExists();

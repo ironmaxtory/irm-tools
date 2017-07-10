@@ -21,5 +21,6 @@ cp -f app.config.js "$prepackPath"
 cp -rf main "$prepackPath"
 cp -f package.json "$prepackPath"
 npm run pack
-cp -rf "$prepackPath"/* ../irm-tools-dist
+rm -rf "$distpackPath"/dist/dist/*
+cp -rf "$prepackPath"/* "$distpackPath"
 rm -rf "$prepackPath"

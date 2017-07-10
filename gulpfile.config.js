@@ -9,7 +9,6 @@ const fs = require('fs'),
   path = require('path'),
   gulp = require('gulp'),
   argv = require('yargs').argv,
-  chalk = require('chalk'),
   browserSync = require('browser-sync');
 
 var config = require(argv.config);
